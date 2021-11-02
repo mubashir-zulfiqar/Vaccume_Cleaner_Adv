@@ -9,28 +9,30 @@ public class environment implements EnvironmentInterface{
     environment() {
         room = new Room[3][4];
         // Ground Floor
-        room[0][0] = new Room(true);
-        room[0][1] = new Room(false);
-        room[0][2] = new Room(true);
-        room[0][3] = new Room(false);
+        room[0][0] = new Room(true, true);
+        room[0][1] = new Room(false, true);
+        room[0][2] = new Room(true, false);
+        room[0][3] = new Room(false, true);
 
         // 1nd Floor
-        room[1][0] = new Room(false);
-        room[1][1] = new Room(false);
-        room[1][2] = new Room(false);
-        room[1][3] = new Room(false);
+        room[1][0] = new Room(false, true);
+        room[1][1] = new Room(false, false);
+        room[1][2] = new Room(false, true);
+        room[1][3] = new Room(false, true);
 
         // 2rd Floor
-        room[2][0] = new Room(false);
-        room[2][1] = new Room(false);
-        room[2][2] = new Room(false);
-        room[2][3] = new Room(false);
+        room[2][0] = new Room(false, false);
+        room[2][1] = new Room(false, true);
+        room[2][2] = new Room(false, true);
+        room[2][3] = new Room(false, true);
     }
 
     @Override
     public void moveLeft() {
         if (agentCurrRoom == 0) {
             System.out.println("There are no rooms on the Left.\n");
+        } else if (!room[agentCurrFloor][agentCurrRoom].canEnter) {
+            System.out.println("Agent cannot go into Room " + agentCurrRoom + " on Floor " + agentCurrFloor + ".\n");
         } else {
             agentCurrRoom -= 1;
             System.out.println("Agent is now moved to Left room. Floor: " + (agentCurrFloor + 1) + ", Room: " + (agentCurrRoom + 1));
@@ -43,6 +45,8 @@ public class environment implements EnvironmentInterface{
     public void moveRight() {
         if (agentCurrRoom == 3) {
             System.out.println("There are no rooms on the Right.\n");
+        } else if (!room[agentCurrFloor][agentCurrRoom].canEnter) {
+            System.out.println("Agent cannot go into Room " + agentCurrRoom + " on Floor " + agentCurrFloor + ".\n");
         } else {
             agentCurrRoom += 1;
             System.out.println("Agent is now moved to Right room. Floor: " + (agentCurrFloor + 1) + ", Room: " + (agentCurrRoom + 1));
